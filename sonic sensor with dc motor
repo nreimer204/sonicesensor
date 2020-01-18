@@ -1,0 +1,72 @@
+/*  Arduino DC Motor Control - PWM | H-Bridge | L298N
+         Example 02 - Arduino Robot Car Control
+    by Dejan Nedelkovski, www.HowToMechatronics.com
+*/
+
+#define enA 10
+#define enB 11
+#define in1 4
+#define in2 5
+#define in3 6
+#define in4 7
+
+#include <Servo.h>
+Servo servo1;
+int trigPin = 8;
+int echoPin = 9;
+long distance;
+long duration;
+
+int motorSpeedA = 0;
+int motorSpeedB = 0;
+
+void setup() {
+  pinMode(enA, OUTPUT);
+  pinMode(enB, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);// put your setup code here, to run once:
+}
+
+void loop() {
+  ultra();
+
+  if (distance <= 20) {
+    // Set Motor A backward
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    // Set Motor B backward
+    digitalWrite(in3, HIGH);
+    digitalWrite(in4, LOW);
+    motorSpeedA = 100;
+    motorSpeedB = 100;
+  }
+  else   if (distance > 20) {
+    // Set Motor A forward
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+    // Set Motor B forward
+    digitalWrite(in3, LOW);
+    digitalWrite(in4, HIGH);
+    // Convert the increasing Y-axis readings for going forward from 550 to 1023 into 0 to 255 value for the PWM signal for increasing the motor speed
+    motorSpeedA = 0;
+    motorSpeedB = 0;
+  }
+
+  analogWrite(enA, motorSpeedA); // Send PWM signal to motor A
+  analogWrite(enB, motorSpeedB); // Send PWM signal to motor B
+}
+
+
+void ultra() {
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  duration = pulseIn(echoPin, HIGH);
+  distance = duration * 0.034 / 2;
+}
