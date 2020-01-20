@@ -15,9 +15,7 @@ int val = 0;                 // variable to store the sensor status (value)
 
 void setup() {
   pinMode(sensor, INPUT);    // initialize sensor as an input
-  Serial.begin(9600);        // initialize serial
 
-  
 }
 
 void loop(){
