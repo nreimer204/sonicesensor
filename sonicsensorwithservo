@@ -42,9 +42,7 @@ const int echoPin = 7;
  
 // a maximum of eight servo objects can be created
  
-Servo myservo;
- 
-        
+Servo myservo;   
  
 // variable to store the servo position
  
@@ -56,15 +54,11 @@ void setup() {
  
  Serial.begin(9600);
  
- 
- 
 // attaches the servo on pin 9 to the servo object
  
  myservo.attach(9);
    pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT); 
- 
- 
  
 }
  
@@ -73,16 +67,11 @@ void loop()
 {
  
  // establish variables for duration of the ping,
- 
  // and the distance result in inches and centimeters:
  
  long duration, inches, cm;
  
- 
- 
- // The sensor is triggered by a HIGH pulse of 10 or 
- // more microseconds.
- 
+ // The sensor is triggered by a HIGH pulse of 10 or more microseconds.
  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
  
  digitalWrite(trigPin, LOW);
@@ -98,14 +87,10 @@ void loop()
  
  
  // Read the signal from the sensor: a HIGH pulse whose
- 
  // duration is the time (in microseconds) from the sending
- 
  // of the ping to the reception of its echo off of an object.
  
  duration = pulseIn(echoPin, HIGH);
- 
- 
  
  // convert the time into a distance
  
